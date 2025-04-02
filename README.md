@@ -34,32 +34,33 @@ Here is a breakdown of the Database entity relationship diagram.
 <p>
 <i>MVP</i>
 As a non-registered troll toll operator:<br />
-  
+  <p>
 * I want to view a list of T-shirts on the home page.<br />
 * I want to be able to view a category of T-shirts. <br />
 * I want to view an individual T-shirt. <br />
-  
+  </p><p>
 * I want to personalise an individual T-shirt. <br />
 * I want to change the color of the t-shirt. <br />
 * I want to change the size of the t-shirt. <br />
-
+  </p><p>
 * I want the customer to create an account. <br />
 * I want the customer to be able to login an account. <br />  
 * I want the customer to be able to logout an account. <br />  
-
+  </p><p>
 * I want to add an item to a Wishlist. <br />
 * I want to remove an item to a Wishlist. <br />
-
+  </p><p>
 * I want to add an item to a Shopping Cart. <br />
 * I want to remove an item to a Shopping Cart. <br />
-
+  </p><p>
 * I want to remove an item to a Wishlist. <br />
 * I want to add an item from a Wishlist to a cart. <br />
 * I want to add an item to a Shopping Cart from a Wishlist. <br />
-
+  </p><p>  
 * I want to complete a purchase. <br />
 * I want to confirm the shipping of a purchase, via email. <br />
 * I want the customer to be able to logout an account. <br />  
+  <p>
 <br />
 </p>
 
