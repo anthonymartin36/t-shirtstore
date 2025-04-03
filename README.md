@@ -22,7 +22,8 @@ Here is a breakdown of the Database entity relationship diagram.
 * Payment<br />
 * Cart<br />
 * Wishlist<br />
-</p>[ERD Image](https://github.com/user-attachments/assets/8d447bd2-0cf5-41b0-88b9-9b6a716aaf12)
+</p>
+![ERD Image](https://github.com/user-attachments/assets/8d447bd2-0cf5-41b0-88b9-9b6a716aaf12)
 
 
 <b> API Calls </b>
