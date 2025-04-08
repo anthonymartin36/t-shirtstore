@@ -9,7 +9,7 @@ Product.create!([
     description: 'Classic Black T-Shirt, 100% Cotton',
     price: 19.99,
     stock: 100,
-    category_id: 1,
+    category_id: categories.first.id,
     size: 'S',
     colour: 'Black'
   },

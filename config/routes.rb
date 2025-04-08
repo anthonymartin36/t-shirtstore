@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
+  resources :categories
   namespace :api do
     namespace :v1 do
       resources :products
       resources :orders
       resources :customers
+      resources :categories
     end
   end
   #resources :customers

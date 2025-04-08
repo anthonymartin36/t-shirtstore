@@ -1,4 +1,4 @@
-Category.Create!([
+Category.create!([
   { name: "Polo T-Shirt" },
   { name: "V-Neck T-Shirt" },
   { name: "Round Neck T-Shirt" },
