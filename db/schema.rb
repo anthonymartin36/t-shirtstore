@@ -31,8 +31,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_07_040336) do
   create_table "products", force: :cascade do |t|
     t.string "SKU"
     t.text "description"
+    t.text "material"
     t.decimal "price"
     t.integer "stock"
+    t.integer "image_id"
     t.string "size"
     t.string "colour"
     t.datetime "created_at", null: false

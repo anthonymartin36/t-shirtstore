@@ -1,23 +1,21 @@
 # T-ShirtStore Rails backend API
-<h2>Online T-Shirt Store</h2>
+### Online T-Shirt Store
 
-<b>Description</b>
+## Description
 
-<p>
   Given our current econimic situation, its time to get entrepreneurial, so time to sell some items online and build an online store. 
-  This is an online T-Shirt store built with a Rails API backend and a JS React frontend.
-<p>
-<i>Sprints</i>
-<b> User Stories </b>
-A Customer can:<br />
+  This is an online T-Shirt store built with a Rails API backend / PostgreSQL and a JavaScript React frontend. The goal of this applicaiton is to stretch my Rails API skills and as a stretch my authentication skills. Also there are some stretch challenges using React on the front end with regards UI. Finally for this project I am using Tailwind CSS to increase my frontend design skills. So I hope you enjoy my application. 
+
+## Frontend
+see - https://github.com/anthonymartin36/t-shirt-rt-tw
+
+## User Stories 
+A Customer can:
+
   <p>
 * Be able to view a list of T-shirts on the home page.<br />
 * Be able to be able to view a category of T-shirts. <br />
 * Be able to view an individual T-shirt. <br />
-  </p><p>
-* Be able to personalise an individual T-shirt. <br />
-* Be able to change the color of the t-shirt. <br />
-* Be able to change the size of the t-shirt. <br />
   </p><p>
 * Be able to track a non-logged in customer via Cookies or Session or hiden field. <br /> 
   </p><p>
@@ -41,12 +39,16 @@ A Customer can:<br />
 * Be able to see a comment of a t-shirt. <br /> 
 * Be able to see a Ratting of a t-shirt. <br />
 * Be able to see if item is in stock or not. <br />
+  </p><p>
+* Be able to personalise an individual T-shirt. <br />
+* Be able to change the color of the t-shirt. <br />
+* Be able to change the size of the t-shirt. <br />
   </p>
 <br />
 </p>
 </p>
 
-<b>Database ERD</b>
+## Database ERD
 <p>
 Here is a breakdown of the Database entity relationship diagram. 
 <u>Tables</u>
@@ -63,8 +65,9 @@ Here is a breakdown of the Database entity relationship diagram.
 </p>
 ![ERD Image](https://github.com/user-attachments/assets/8d447bd2-0cf5-41b0-88b9-9b6a716aaf12)
 
-<b> API Calls </b>
+## API Calls 
 <p>
+
 ### API (Client - Server)
 
 | Method | Endpoint | Protected | Usage | Response |
