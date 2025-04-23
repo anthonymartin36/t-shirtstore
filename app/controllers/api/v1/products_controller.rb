@@ -3,8 +3,9 @@ class Api::V1::ProductsController < ApplicationController
 
   # GET /products
   def index
-    @products = Product.all
-
+    @products = Product.with_category_and_images
+   
+    
     render json: @products
   end
 

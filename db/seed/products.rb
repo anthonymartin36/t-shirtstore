@@ -1,6 +1,8 @@
 categories = Category.create!([
-  { name: 'T-Shirts' 
-}])
+  { name: "Polo T-Shirt" },
+  { name: "V-Neck T-Shirt" },
+  { name: "Raglan T-Shirt" },
+  { name: "T-Shirt" }])
 
 # Then create products
 Product.create!([
@@ -10,19 +12,19 @@ Product.create!([
     material: 'Premium Cotton',
     price: 19.99,
     stock: 100,
-    category_id: categories.first.id,
-    image_id: 1,
+    category_id: categories.fourth.id,
+    image_id: 14,
     size: 'S',
     colour: 'Black'
   },
   {
-    SKU: 'TS-BLK-M',
-    description: 'Classic Black T-Shirt, 100% Cotton',
+    SKU: 'TS-WHT-M',
+    description: 'Classic White T-Shirt, 100% Cotton',
     material: 'Premium Cotton',
     price: 19.99,
     stock: 150,
-    category_id: categories.first.id,
-    image_id: 1,
+    category_id: categories.fourth.id,
+    image_id: 15,
     size: 'M',
     colour: 'Black'
   },
@@ -32,30 +34,30 @@ Product.create!([
     material: 'Premium Cotton',
     price: 24.99,
     stock: 75,
-    category_id: categories.first.id,
-    image_id: 1,
+    category_id: categories.fourth.id,
+    image_id: 16,
     size: 'L',
     colour: 'Red'
   },
   {
-    SKU: 'HD-GRY-XL',
-    description: 'Comfortable Gray Hoodie, Fleece Interior',
+    SKU: 'PL-BLU-L',
+    description: 'Comfortable Blue Polo T-Shirt',
     material: 'Premium Cotton',
     price: 39.99,
     stock: 50,
     category_id: categories.first.id,
-    image_id: 1,
+    image_id: 3,
     size: 'XL',
     colour: 'Gray'
   },
   {
-    SKU: 'TK-BLU-M',
-    description: 'Summer Blue Tank Top',
+    SKU: 'RGB-BLU-M',
+    description: 'Raglan T-Shirt with Blue Sleeves',
     material: 'Premium Cotton',
     price: 15.99,
     stock: 80,
-    category_id: categories.first.id,
-    image_id: 1,
+    category_id: categories.third.id,
+    image_id: 10,
     size: 'M',
     colour: 'Blue'
   }
