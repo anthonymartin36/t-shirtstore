@@ -3,10 +3,9 @@ class Api::V1::ProductsController < ApplicationController
 
   # GET /products
   def index
-    @products = Product.with_category_and_images
-   
+    @products = Product.includes(:image, :category) # Eager load image and category associations
     
-    render json: @products
+    render json: @products, include: [:image, :category] # Include associated data in the JSON response
   end
 
   # GET /products/1
