@@ -1,0 +1,7 @@
+services:
+  web:
+    build: .
+    environment:
+      - RAILS_MASTER_KEY=de7691105e4ec284e0dff67e07cff539
+    ports:
+      - "3000:80"
