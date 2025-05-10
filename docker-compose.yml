@@ -2,6 +2,10 @@ services:
   web:
     build: .
     environment:
-      - RAILS_MASTER_KEY=de7691105e4ec284e0dff67e07cff539
+      - RAILS_MASTER_KEY
     ports:
       - "3000:80"
+
+secrets:
+  RAILS_MASTER_KEY:
+    file: ./.env/RAILS_MASTER_KEY
