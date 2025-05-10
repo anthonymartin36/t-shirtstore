@@ -7,7 +7,12 @@ Rails.application.routes.draw do
       resources :orders
       resources :customers
       resources :categories
-      resources :carts
+      resources :carts do
+        member do
+          get :quantity  # GET /api/v1/carts/:id/quantity
+          patch :update_quantity  # PATCH /api/v1/carts/:id/update_quantity
+        end
+      end
     end
   end
   #resources :customers
