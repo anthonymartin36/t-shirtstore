@@ -13,6 +13,12 @@ Rails.application.routes.draw do
           patch :update_quantity  # PATCH /api/v1/carts/:id/update_quantity
         end
       end
+      resources :wishlists do
+        member do
+          get :quantity  # GET /api/v1/wishlists/:id/quantity
+          patch :update_quantity  # PATCH /api/v1/wishlists/:id/update_quantity
+        end
+      end
     end
   end
   #resources :customers
