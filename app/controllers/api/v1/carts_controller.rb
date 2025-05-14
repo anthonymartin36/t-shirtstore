@@ -47,11 +47,13 @@ class Api::V1::CartsController < ApplicationController
   # PATCH /api/v1/carts/:id/update_quantity
   def update_quantity
     new_quantity = params[:quantity].to_i # Get the new quantity from the request
+    Rails.logger.info "New quantity value: #{new_quantity}" # Log the new_quantity value
+    # the body json needs to be added to the quality data fieldnpm run 
 
     if new_quantity <= 0
       @cart.destroy! # Delete the cart item if the quantity is 0 or less
       render json: { message: "Cart item deleted" }, status: :ok
-    elsif @cart.update(quantity: new_quantity)
+    elsif  @cart.update(quantity: new_quantity)
       render json: { quantity: @cart.quantity }, status: :ok # Return the updated quantity
     else
       render json: @cart.errors, status: :unprocessable_entity # Handle validation errors
