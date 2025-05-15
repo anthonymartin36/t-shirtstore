@@ -1,5 +1,5 @@
 class Api::V1::WishlistsController < ApplicationController
-  before_action :set_wishlist, only: %i[ show update destroy quantity update_quantity]
+  before_action :set_wishlist, only: %i[ show update destroy quantity update_quantity add_to_cart]
 
   # GET api/v1/wishlists
   def index
@@ -60,6 +60,23 @@ class Api::V1::WishlistsController < ApplicationController
     end
   end
 
+  # POST /api/v1/wishlists/:id/cart
+  def add_to_cart
+    @cart = Cart.new(
+      product_id: @wishlist.product_id,
+      customer_id: @wishlist.customer_id,
+      quantity: @wishlist.quantity
+    )
+    
+    if @cart.save
+      @wishlist.destroy! # Remove the item from the wishlist after adding to cart
+      render json: { message: "Item added to cart and removed from wishlist" }, status: :ok
+    else
+      render json: @cart.errors, status: :unprocessable_entity
+    end
+  end
+
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_wishlist
@@ -78,3 +95,6 @@ class Api::V1::WishlistsController < ApplicationController
     params.expect(wishlist: [ :quantity, :customer_id, :product_id ])
   end
 
+  # def cart_params
+  #   params.require(:cart).permit(:quantity, :customer_id, :product_id)
+  # end
