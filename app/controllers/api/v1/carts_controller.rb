@@ -1,19 +1,19 @@
 class Api::V1::CartsController < ApplicationController
   before_action :set_cart, only: %i[show update destroy quantity update_quantity]
   
-  # GET /carts
+  # GET api/v1/carts
   def index
     @carts = Cart.includes(product: :image)
 
     render json: @carts, include: { product: { include: :image } } # Include the image in the JSON
   end
 
-  # GET /carts/1
+  # GET api/v1/carts/1
   def show
     render json: @cart
   end
 
-  # POST /carts
+  # POST api/v1/carts
   def create
     @cart = Cart.new(cart_params)
 
@@ -24,7 +24,7 @@ class Api::V1::CartsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /carts/1
+  # PATCH/PUT api/v1/carts/1
   def update
     if @cart.update(cart_params)
       render json: @cart
@@ -33,7 +33,7 @@ class Api::V1::CartsController < ApplicationController
     end
   end
 
-  # DELETE /carts/1
+  # DELETE api/v1/carts/1
   def destroy
     @cart.destroy!
   end

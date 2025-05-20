@@ -6,6 +6,7 @@ class Api::V1::WishlistsController < ApplicationController
     @wishlists = Wishlist.includes(product: :image)
 
     render json: @wishlists, include: { product: { include: :image } }
+    Rails.logger.info "New Wishlist value: #{@wishlists .inspect}" # Log the new_quantity value
   end
 
   # GET  api/v1/wishlists/1
