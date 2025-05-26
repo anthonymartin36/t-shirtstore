@@ -8,10 +8,11 @@
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
     origins "http://localhost:5173"
-
-    resource "*",
+    resource(
+      '*',
       headers: :any,
-      methods: [:get, :post, :put, :patch, :delete, :options, :head],
-      credentials true # Allow cookies to be sent with requests
+      expose: ['access-token', 'expiry', 'token-type', 'Authorization'],
+      methods: [:get, :patch, :put, :delete, :post, :options, :show]
+    )
   end
 end
