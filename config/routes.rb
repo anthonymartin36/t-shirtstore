@@ -19,6 +19,9 @@ Rails.application.routes.draw do
           patch :update_quantity  # PATCH /api/v1/wishlists/:id/update_quantity
           post :cart, action: :add_to_cart  # POST /api/v1/wishlists/:id/cart
         end
+        collection do
+          get 'product/:product_id', action: :find_quantity  # GET /api/v1/wishlists/product/:product_id
+        end
       end
     end
   end

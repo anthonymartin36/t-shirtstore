@@ -44,7 +44,7 @@ class Api::V1::WishlistsController < ApplicationController
     Rails.logger.info "Params: #{params.inspect}" # Log the params object
     render json: { quantity: @wishlist.quantity }, status: :ok
   end
-
+      
   # PATCH /api/v1/wishlists/:id/update_quantity
   def update_quantity
     new_quantity = params[:quantity].to_i # Get the new quantity from the request
@@ -77,12 +77,27 @@ class Api::V1::WishlistsController < ApplicationController
     end
   end
 
+  # Get (/api/v1/wishlists/product/:productId) to see if product already exists in the wishlist, returns null or wishlist id
+  def find_quantity
+    Rails.logger.info "Params: #{params.inspect}" # Log the params object
+    find_product = Wishlist.find_by(product_id: params[:product_id])
+    if find_product
+      render json: { wishlistid: find_product.id, quantity: find_product.quantity } # Return the wishlist ID and quantity
+    else
+      render json: { wishlistid: 0, quantity: 0 } # Return false if the wishlist item does not exist
+    end
+  end
 
   private
   # Use callbacks to share common setup or constraints between actions.
+
   def set_wishlist
+    Rails.logger.info "Params ID: #{params[:id]}" # Log the ID parameter
     @wishlist = Wishlist.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    render json: { error: "Wishlist not found" }, status: :not_found
   end
+
   rescue ActiveRecord::RecordNotFound
     render json: { error: "Wishlist not found" }, status: :not_found
   end
