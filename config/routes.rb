@@ -1,8 +1,17 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :carts
   resources :categories
   namespace :api do
     namespace :v1 do
+          devise_for :users, path: '', path_names: {
+            sign_in: 'login',
+            sign_out: 'logout',
+            registration: 'register'
+          },
+          controllers: {
+            registrations: 'api/v1/users/registrations'
+          }
       resources :products
       resources :orders
           resources :categories
