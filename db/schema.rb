@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_11_033019) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_12_002256) do
   create_table "carts", force: :cascade do |t|
     t.integer "quantity"
     t.string "customer_id"
@@ -75,7 +75,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_11_033019) do
 
   create_table "users", force: :cascade do |t|
     t.string "name", null: false
-    t.string "username", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -90,7 +89,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_11_033019) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
   create_table "wishlists", force: :cascade do |t|

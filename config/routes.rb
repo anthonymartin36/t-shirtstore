@@ -10,7 +10,8 @@ Rails.application.routes.draw do
             registration: 'register'
           },
           controllers: {
-            registrations: 'api/v1/users/registrations'
+            registrations: 'api/v1/users/registrations',
+            sessions: 'api/v1/sessions'
           }
       resources :products
       resources :orders
