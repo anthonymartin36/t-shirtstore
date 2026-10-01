@@ -78,3 +78,4 @@ class Api::V1::WishlistsController < ApplicationController
     params.expect(wishlist: [ :quantity, :customer_id, :product_id ])
   end
 
+ 
