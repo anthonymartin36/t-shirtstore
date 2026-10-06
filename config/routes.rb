@@ -16,6 +16,9 @@ Rails.application.routes.draw do
       resources :wishlists do
         member do
           get :quantity  # GET /api/v1/wishlists/:id/quantity
+          get :show_by_product  # GET /api/v1/wishlists/product/:product_id
+          post :cart  # POST /api/v1/wishlists/:id/cart
+          post :add_all_to_cart  # POST /api/v1/wishlists/:id/add_all_to_cart
           patch :update_quantity  # PATCH /api/v1/wishlists/:id/update_quantity
         end
       end
