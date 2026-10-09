@@ -1,5 +1,9 @@
 class Api::V1::WishlistsController < ApplicationController
+<<<<<<< HEAD
   before_action :set_wishlist, only: %i[ show update destroy quantity update_quantity add_to_cart]
+=======
+  before_action :set_wishlist, only: %i[ show update destroy quantity update_quantity show_by_product cart ]
+>>>>>>> docker-trial
 
   # GET api/v1/wishlists
   def index
@@ -37,6 +41,33 @@ class Api::V1::WishlistsController < ApplicationController
   # DELETE  api/v1/wishlists/1
   def destroy
     @wishlist.destroy!
+  end
+
+  # GET /api/v1/wishlists/product/:product_id
+  def show_by_product
+    @wishlist = Wishlist.find_by(product_id: params[:product_id])
+    if @wishlist
+      render json: @wishlist
+    else
+      render json: { error: "Wishlist not found for product_id #{params[:product_id]}" }, status: :not_found
+    end
+  end 
+
+
+  # POST /api/v1/wishlists/:id/cart
+  def cart
+    @cart = Cart.new(
+      product_id: @wishlist.product_id,
+      customer_id: @wishlist.customer_id,
+      quantity: @wishlist.quantity
+    )
+    
+    if @cart.save
+      @wishlist.destroy! # Remove the item from the wishlist after adding to cart
+      render json: { message: "Item added to cart and removed from wishlist" }, status: :ok
+    else
+      render json: @cart.errors, status: :unprocessable_entity
+    end
   end
 
   # GET /api/v1/wishlists/:id/quantity
@@ -94,10 +125,13 @@ class Api::V1::WishlistsController < ApplicationController
   def set_wishlist
     Rails.logger.info "Params ID: #{params[:id]}" # Log the ID parameter
     @wishlist = Wishlist.find(params[:id])
+<<<<<<< HEAD
   rescue ActiveRecord::RecordNotFound
     render json: { error: "Wishlist not found" }, status: :not_found
   end
 
+=======
+>>>>>>> docker-trial
   rescue ActiveRecord::RecordNotFound
     render json: { error: "Wishlist not found" }, status: :not_found
   end
@@ -110,7 +144,12 @@ class Api::V1::WishlistsController < ApplicationController
   def wishlist_params
     params.expect(wishlist: [ :quantity, :customer_id, :product_id ])
   end
+<<<<<<< HEAD
 
   # def cart_params
   #   params.require(:cart).permit(:quantity, :customer_id, :product_id)
   # end
+=======
+end
+ 
+>>>>>>> docker-trial
