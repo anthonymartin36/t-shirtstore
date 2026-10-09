@@ -20,7 +20,7 @@ const ContinueWithGoogle: React.FC = () => {
       // Redirect to the home page after successful login
       navigate('/');
     } catch (error) {
-      console.error("Login failed:", error);
+      //console.error("Login failed:", error);
     }
   }
 	return (
