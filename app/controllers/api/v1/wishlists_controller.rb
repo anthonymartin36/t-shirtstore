@@ -1,5 +1,5 @@
 class Api::V1::WishlistsController < ApplicationController
-  before_action :set_wishlist, only: %i[ show update destroy quantity update_quantity show_by_product cart add_all_to_cart]
+  before_action :set_wishlist, only: %i[ show update destroy quantity update_quantity show_by_product cart ]
 
   # GET api/v1/wishlists
   def index
@@ -63,25 +63,6 @@ class Api::V1::WishlistsController < ApplicationController
     else
       render json: @cart.errors, status: :unprocessable_entity
     end
-  end
-  
-  # POST /api/v1/wishlists/:id/add_all_to_cart
-  def add_all_to_cart
-    @wishlists = Wishlist.where(customer_id: @wishlist.customer_id)
-
-    @wishlists.each do |wishlist_item|
-      cart_item = Cart.new(
-        product_id: wishlist_item.product_id,
-        customer_id: wishlist_item.customer_id,
-        quantity: wishlist_item.quantity
-      )   
-      if cart_item.save
-        @wishlist_item.destroy! # Remove the item from the wishlist after adding to cart
-      else
-        render json: { error: "Failed to add all item to cart", details: cart_item.errors.full_messages }, status: :unprocessable_entity
-        return
-      end
-    end 
   end
 
   # GET /api/v1/wishlists/:id/quantity

@@ -1,6 +1,5 @@
-//import { CartTypeWithProductextendImage } from './types'
 interface CartCalculationProps {
-    total: number;
+    total: number
 }
 
 const CartCalculation: React.FC<CartCalculationProps>= ({ total }) => {
@@ -11,31 +10,28 @@ const CartCalculation: React.FC<CartCalculationProps>= ({ total }) => {
     const shipping: number = 5.60
     let result: number = total2 + shipping + gst
     result = Number(result.toFixed(2))
+
     return (
-        <div className="p-5">
+        <div>
         <div className="flex justify-between mt-4">
             <div className="text-left"> GST (%15)</div>
-            <div  className="text-right"> 
+            <div  className="text-right">
                 $ { gst }
-            </div> 
+            </div>
         </div>
         <div  className="flex justify-between mt-4">
-            <div className="text-left">Shipping (NZ Courier)</div>
+            <div className="text-left">Shipping</div>
             <div className="text-right"> $ {shipping.toFixed(2)}</div>
         </div>
-        <div className="flex justify-between mt-4">
-            <div className="text-left hidden">{total2}</div>
+        <div className="flex justify-between mt-4 font-bold">
+            <div className="text-left hidden b">{total2}</div>
             <div className="text-left"> Total </div>
-            <div  className="text-right"> 
+            <div  className="text-right">
                 $ { result }
-            </div> 
+            </div>
         </div>
         <div className="flex justify-between text-right font-medium text-gray-900">
         </div>
-        <div className="py-2" />
-        <div className="border-b border-gray-200" />
-        <div className="py-2" />
-       
         </div>
 	)
 }

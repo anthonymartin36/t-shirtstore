@@ -12,9 +12,10 @@ const Checkout: React.FC = () => {
             <Header darkMode={darkMode} setDarkMode={setDarkMode}/>
                 <div className="mx-auto lg:max-w-4xl sm:max-w-3xl px-4 py-6 sm:px-6 lg:px-8">
                     <h2 className="text-4xl text-red-500 font-bold tracking-tight sm:text-6xl">Checkout Page</h2>
+                    <div className="list-none p-4 my-4 rounded-md border border-yellow-200">
+                        <CheckoutDetails />
+                    </div>
                 </div>
-                <CheckoutDetails />
-                
             <Footer />
         </PageLayout>
 	)

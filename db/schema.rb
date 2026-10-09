@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_12_002256) do
+ActiveRecord::Schema[8.0].define(version: 2026_10_09_023750) do
   create_table "carts", force: :cascade do |t|
     t.integer "quantity"
     t.string "customer_id"
@@ -57,6 +57,43 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_12_002256) do
     t.index ["reset_password_token"], name: "index_installs_on_reset_password_token", unique: true
   end
 
+  create_table "order_items", force: :cascade do |t|
+    t.integer "quantity"
+    t.decimal "price"
+    t.integer "product_id", null: false
+    t.integer "order_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+    t.index ["product_id"], name: "index_order_items_on_product_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer "customer_id", null: false
+    t.integer "shipment_id", null: false
+    t.integer "payment_id", null: false
+    t.decimal "cost_price", precision: 10, scale: 2
+    t.decimal "tax", precision: 10, scale: 2
+    t.decimal "courier_cost", precision: 10, scale: 2
+    t.decimal "total", precision: 10, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_orders_on_customer_id"
+    t.index ["payment_id"], name: "index_orders_on_payment_id"
+    t.index ["shipment_id"], name: "index_orders_on_shipment_id"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.string "card_name"
+    t.string "card_number"
+    t.string "expiry_date"
+    t.string "cvv"
+    t.integer "customer_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_payments_on_customer_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "SKU"
     t.text "description"
@@ -71,6 +108,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_12_002256) do
     t.integer "image_id", null: false
     t.index ["category_id"], name: "index_products_on_category_id"
     t.index ["image_id"], name: "index_products_on_image_id"
+  end
+
+  create_table "shipments", force: :cascade do |t|
+    t.string "full_name"
+    t.string "address"
+    t.string "city"
+    t.string "postal_code"
+    t.string "country"
+    t.integer "customer_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_shipments_on_customer_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -101,7 +150,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_12_002256) do
   end
 
   add_foreign_key "carts", "products"
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "order_items", "products"
+  add_foreign_key "orders", "customers"
+  add_foreign_key "orders", "payments"
+  add_foreign_key "orders", "shipments"
+  add_foreign_key "payments", "customers"
   add_foreign_key "products", "categories"
   add_foreign_key "products", "images"
+  add_foreign_key "shipments", "customers"
   add_foreign_key "wishlists", "products"
 end
