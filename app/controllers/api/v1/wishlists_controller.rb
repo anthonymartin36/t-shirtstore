@@ -1,9 +1,6 @@
 class Api::V1::WishlistsController < ApplicationController
-<<<<<<< HEAD
   before_action :set_wishlist, only: %i[ show update destroy quantity update_quantity add_to_cart]
-=======
-  before_action :set_wishlist, only: %i[ show update destroy quantity update_quantity show_by_product cart ]
->>>>>>> docker-trial
+
 
   # GET api/v1/wishlists
   def index
@@ -125,13 +122,7 @@ class Api::V1::WishlistsController < ApplicationController
   def set_wishlist
     Rails.logger.info "Params ID: #{params[:id]}" # Log the ID parameter
     @wishlist = Wishlist.find(params[:id])
-<<<<<<< HEAD
-  rescue ActiveRecord::RecordNotFound
-    render json: { error: "Wishlist not found" }, status: :not_found
-  end
 
-=======
->>>>>>> docker-trial
   rescue ActiveRecord::RecordNotFound
     render json: { error: "Wishlist not found" }, status: :not_found
   end
@@ -144,12 +135,5 @@ class Api::V1::WishlistsController < ApplicationController
   def wishlist_params
     params.expect(wishlist: [ :quantity, :customer_id, :product_id ])
   end
-<<<<<<< HEAD
 
-  # def cart_params
-  #   params.require(:cart).permit(:quantity, :customer_id, :product_id)
-  # end
-=======
 end
- 
->>>>>>> docker-trial

@@ -10,17 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema[8.0].define(version: 2025_11_12_002256) do
-=======
-ActiveRecord::Schema[8.0].define(version: 2026_10_09_023750) do
->>>>>>> docker-trial
+ActiveRecord::Schema[8.0].define(version: 2026_10_12_053655) do
   create_table "carts", force: :cascade do |t|
     t.integer "quantity"
-    t.string "customer_id"
     t.integer "product_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "customer_id"
+    t.string "guest_token"
+    t.index ["customer_id"], name: "index_carts_on_customer_id"
+    t.index ["guest_token"], name: "index_carts_on_guest_token"
     t.index ["product_id"], name: "index_carts_on_product_id"
   end
 
@@ -34,11 +33,16 @@ ActiveRecord::Schema[8.0].define(version: 2026_10_09_023750) do
     t.string "first_name"
     t.string "second_name"
     t.string "email"
-    t.string "password_digest"
+    t.string "encrypted_password"
     t.string "address"
     t.string "phone_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.index ["email"], name: "index_customers_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
   end
 
   create_table "images", force: :cascade do |t|
@@ -49,20 +53,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_10_09_023750) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "installs", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_installs_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_installs_on_reset_password_token", unique: true
-  end
-
-<<<<<<< HEAD
-=======
   create_table "order_items", force: :cascade do |t|
     t.integer "quantity"
     t.decimal "price"
@@ -100,7 +90,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_10_09_023750) do
     t.index ["customer_id"], name: "index_payments_on_customer_id"
   end
 
->>>>>>> docker-trial
   create_table "products", force: :cascade do |t|
     t.string "SKU"
     t.text "description"
@@ -117,8 +106,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_10_09_023750) do
     t.index ["image_id"], name: "index_products_on_image_id"
   end
 
-<<<<<<< HEAD
-=======
   create_table "shipments", force: :cascade do |t|
     t.string "full_name"
     t.string "address"
@@ -131,34 +118,19 @@ ActiveRecord::Schema[8.0].define(version: 2026_10_09_023750) do
     t.index ["customer_id"], name: "index_shipments_on_customer_id"
   end
 
->>>>>>> docker-trial
-  create_table "users", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string "current_sign_in_ip"
-    t.string "last_sign_in_ip"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-  end
-
   create_table "wishlists", force: :cascade do |t|
     t.integer "quantity"
-    t.string "customer_id"
     t.integer "product_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "customer_id"
+    t.string "guest_token"
+    t.index ["customer_id"], name: "index_wishlists_on_customer_id"
+    t.index ["guest_token"], name: "index_wishlists_on_guest_token"
     t.index ["product_id"], name: "index_wishlists_on_product_id"
   end
 
+  add_foreign_key "carts", "customers"
   add_foreign_key "carts", "products"
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
@@ -169,5 +141,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_10_09_023750) do
   add_foreign_key "products", "categories"
   add_foreign_key "products", "images"
   add_foreign_key "shipments", "customers"
+  add_foreign_key "wishlists", "customers"
   add_foreign_key "wishlists", "products"
 end
