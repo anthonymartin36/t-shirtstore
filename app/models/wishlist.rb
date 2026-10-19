@@ -1,4 +1,4 @@
 class Wishlist < ApplicationRecord
   belongs_to :product
-  belongs_to :customer, optional: true
+  belongs_to :user, optional: true
 end

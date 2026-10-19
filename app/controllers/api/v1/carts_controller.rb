@@ -3,9 +3,8 @@ class Api::V1::CartsController < ApplicationController
   
   # GET api/v1/carts
   def index
-    @carts = Cart.includes(product: :image)
-
-    render json: @carts, include: { product: { include: :image } } # Include the image in the JSON
+    @carts = Cart.includes(product: :image).where(user_id: current_user.id)
+    render json: @carts, include: { product: { include: :image } }
   end
 
   # GET api/v1/carts/1
@@ -16,6 +15,7 @@ class Api::V1::CartsController < ApplicationController
   # POST api/v1/carts
   def create
     @cart = Cart.new(cart_params)
+    @cart.user_id = current_user.id
 
     if @cart.save
       render json: @cart, status: :created, location: @cart
@@ -73,6 +73,6 @@ class Api::V1::CartsController < ApplicationController
   end
 
   def cart_params
-    params.require(:cart).permit(:quantity, :customer_id, :product_id)
+    params.require(:cart).permit(:quantity, :product_id)
   end
 end

@@ -1,13 +1,11 @@
 class Api::V1::WishlistsController < ApplicationController
-  before_action :set_wishlist, only: %i[ show update destroy quantity update_quantity add_to_cart]
+  before_action :set_wishlist, only: %i[ show update destroy quantity update_quantity cart add_to_cart ]
 
 
   # GET api/v1/wishlists
   def index
-    @wishlists = Wishlist.includes(product: :image)
-
+    @wishlists = Wishlist.includes(product: :image).where(user_id: current_user.id)
     render json: @wishlists, include: { product: { include: :image } }
-    Rails.logger.info "New Wishlist value: #{@wishlists .inspect}" # Log the new_quantity value
   end
 
   # GET  api/v1/wishlists/1
@@ -18,6 +16,7 @@ class Api::V1::WishlistsController < ApplicationController
   # POST  api/v1/wishlists
   def create
     @wishlist = Wishlist.new(wishlist_params)
+    @wishlist.user_id = current_user.id
 
     if @wishlist.save
       render json: @wishlist, status: :created
@@ -133,7 +132,7 @@ class Api::V1::WishlistsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def wishlist_params
-    params.expect(wishlist: [ :quantity, :customer_id, :product_id ])
+    params.expect(wishlist: [ :quantity, :product_id ])
   end
 
 end

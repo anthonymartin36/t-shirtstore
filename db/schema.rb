@@ -10,17 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_10_12_053655) do
+ActiveRecord::Schema[8.0].define(version: 2026_10_14_044242) do
   create_table "carts", force: :cascade do |t|
     t.integer "quantity"
     t.integer "product_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "customer_id"
-    t.string "guest_token"
-    t.index ["customer_id"], name: "index_carts_on_customer_id"
-    t.index ["guest_token"], name: "index_carts_on_guest_token"
+    t.integer "user_id"
     t.index ["product_id"], name: "index_carts_on_product_id"
+    t.index ["user_id"], name: "index_carts_on_user_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -30,8 +28,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_10_12_053655) do
   end
 
   create_table "customers", force: :cascade do |t|
-    t.string "first_name"
-    t.string "second_name"
     t.string "email"
     t.string "encrypted_password"
     t.string "address"
@@ -41,8 +37,11 @@ ActiveRecord::Schema[8.0].define(version: 2026_10_12_053655) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.string "name"
+    t.integer "user_id"
     t.index ["email"], name: "index_customers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
+    t.index ["user_id"], name: "index_customers_on_user_id", unique: true
   end
 
   create_table "images", force: :cascade do |t|
@@ -51,6 +50,12 @@ ActiveRecord::Schema[8.0].define(version: 2026_10_12_053655) do
     t.string "image_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "jwt_denylists", force: :cascade do |t|
+    t.string "jti", null: false
+    t.datetime "exp", null: false
+    t.index ["jti"], name: "index_jwt_denylists_on_jti", unique: true
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -118,20 +123,28 @@ ActiveRecord::Schema[8.0].define(version: 2026_10_12_053655) do
     t.index ["customer_id"], name: "index_shipments_on_customer_id"
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "guest_token", null: false
+    t.integer "cart_id"
+    t.integer "wishlist_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["guest_token"], name: "index_users_on_guest_token", unique: true
+  end
+
   create_table "wishlists", force: :cascade do |t|
     t.integer "quantity"
     t.integer "product_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "customer_id"
-    t.string "guest_token"
-    t.index ["customer_id"], name: "index_wishlists_on_customer_id"
-    t.index ["guest_token"], name: "index_wishlists_on_guest_token"
+    t.integer "user_id"
     t.index ["product_id"], name: "index_wishlists_on_product_id"
+    t.index ["user_id"], name: "index_wishlists_on_user_id"
   end
 
-  add_foreign_key "carts", "customers"
   add_foreign_key "carts", "products"
+  add_foreign_key "carts", "users"
+  add_foreign_key "customers", "users"
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
   add_foreign_key "orders", "customers"
@@ -141,6 +154,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_10_12_053655) do
   add_foreign_key "products", "categories"
   add_foreign_key "products", "images"
   add_foreign_key "shipments", "customers"
-  add_foreign_key "wishlists", "customers"
+  add_foreign_key "users", "carts"
+  add_foreign_key "users", "wishlists"
   add_foreign_key "wishlists", "products"
+  add_foreign_key "wishlists", "users"
 end

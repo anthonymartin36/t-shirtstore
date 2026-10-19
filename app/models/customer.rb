@@ -1,9 +1,8 @@
 class Customer < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
-         :api
+         :jwt_authenticatable, jwt_revocation_strategy: JwtDenylist
 
-  has_many :carts
-  has_many :wishlists
-  has_many :orders
+  belongs_to :user
+  has_many   :orders
 end

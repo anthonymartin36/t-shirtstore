@@ -1,4 +1,4 @@
-import request from 'superagent'
+import api from './request'
 
 const rootUrl = import.meta.env.VITE_NODE_API_URL + '/api/v1'
 
@@ -34,7 +34,7 @@ export type OrderPayload = {
 export async function createOrderApi(payload: OrderPayload) {
   try {
     console.log('Creating order with payload:', payload)
-    const response = await request
+    const response = await api
       .post(`${rootUrl}/orders`)
       .send(payload)
     return response.body
