@@ -41,6 +41,26 @@ export async function resetCustomerPasswordApi(email: string): Promise<void> {
   }
 }
 
+// PUT update password (/api/v1/reset_password)
+export async function updateCustomerPasswordApi(token: string, password: string, password_confirmation: string): Promise<void> {
+  try {
+    await api
+      .put(`${rootUrl}/reset_password`)
+      .send({ customer: { reset_password_token: token, password, password_confirmation } })
+  } catch (error) {
+    console.error('Error updating password', error); throw error
+  }
+}
+
+// GET confirm email (/api/v1/confirmation?confirmation_token=TOKEN)
+export async function confirmEmailApi(token: string): Promise<void> {
+  try {
+    await api.get(`${rootUrl}/confirmation`).query({ confirmation_token: token })
+  } catch (error) {
+    console.error('Error confirming email', error); throw error
+  }
+}
+
 // DELETE logout (/api/v1/logout)
 export async function logoutCustomerApi(): Promise<void> {
   try {

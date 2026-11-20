@@ -54,7 +54,7 @@ class Api::V1::WishlistsController < ApplicationController
   def cart
     @cart = Cart.new(
       product_id: @wishlist.product_id,
-      customer_id: @wishlist.customer_id,
+      user_id: current_user.id,
       quantity: @wishlist.quantity
     )
     
@@ -92,7 +92,7 @@ class Api::V1::WishlistsController < ApplicationController
   def add_to_cart
     @cart = Cart.new(
       product_id: @wishlist.product_id,
-      customer_id: @wishlist.customer_id,
+      user_id: current_user.id,
       quantity: @wishlist.quantity
     )
     

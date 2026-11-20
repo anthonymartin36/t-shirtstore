@@ -1,10 +1,17 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :null_session
+  protect_from_forgery with: :null_session, prepend: true
+  skip_before_action :verify_authenticity_token, if: -> { request.format.json? || request.content_type&.include?('application/json') }
 
+  before_action :set_request_context
   before_action :set_guest_token
   before_action :set_current_user
 
   private
+
+  def set_request_context
+    Current.request_ip = request.remote_ip
+    Current.user_agent = request.user_agent
+  end
 
   def set_guest_token
     unless cookies[:guest_token]

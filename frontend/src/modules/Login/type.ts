@@ -6,4 +6,7 @@ type FormErrors = {
     server: string
 }
 
-export type { FormErrors }
+type ResetFormErrors = Pick<FormErrors, 'email'>
+
+export type { FormErrors, ResetFormErrors }
+

@@ -59,16 +59,15 @@ const Cart: React.FC<darkModeProps> = ({ darkMode }) => {
                     return (
                         <div key={`${item.id}`} id={`${item.id}`} className="py-1" >
                         <Menu.Item disabled>
-                        <div className="grid grid-cols-2 content-center gap-4 ml-2 text-sm ">
-                            <div className="text-left"> 
-                                <img src={`${base_url}/${item.product.image.image_url}`} alt={item.product.image.image_alt} className="w-20 h-15 " />
+                        <div className="grid grid-cols-2 content-center gap-4 ml-2 text-sm">
+                            <div className="text-left">
+                              <img src={item.product.image.image_url} alt={item.product.image.image_alt} className="w-20 h-20 object-cover rounded" />
                             </div>
                             <div className="text-left">
-                            <strong>{item.product.image.image_name} </strong>
-                            <br />
-                            <CartItem quantity={item.quantity} id={item.id} />
+                              <strong>{item.product.image.image_name}</strong>
+                              <CartItem quantity={item.quantity} id={item.id} />
                             </div>
-                            </div>
+                          </div>
                         </Menu.Item>
                         <div className="py-1" />
                         <div className="border-b border-gray-200" />

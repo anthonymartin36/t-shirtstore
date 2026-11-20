@@ -18,7 +18,7 @@ class Api::V1::CartsController < ApplicationController
     @cart.user_id = current_user.id
 
     if @cart.save
-      render json: @cart, status: :created, location: @cart
+      render json: @cart, status: :created
     else
       render json: @cart.errors, status: :unprocessable_entity
     end

@@ -1,9 +1,9 @@
 import { useAuth0 } from "@auth0/auth0-react"
 
 const useIsAuthenticated = () => {
-  // TODO: call the useAuth0 hook, destructure and return isAuthenticated
-  const authBoolean = useAuth0().isAuthenticated
-  return authBoolean
+  const auth0Bool = useAuth0().isAuthenticated
+  const hasJwt = !!localStorage.getItem('auth_token')
+  return auth0Bool || hasJwt
 }
 interface Props {
   children: React.ReactNode

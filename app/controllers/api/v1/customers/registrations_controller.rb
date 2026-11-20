@@ -2,20 +2,21 @@ class Api::V1::Customers::RegistrationsController < Devise::RegistrationsControl
   respond_to :json
 
   def create
-    Rails.logger.info ">>> RegistrationsController#create reached"
-    Rails.logger.info ">>> sign_up_params: #{sign_up_params.inspect}"
-    Rails.logger.info ">>> current_user: #{current_user.inspect}"
-    build_resource(sign_up_params)
-    resource.user = current_user
-    resource.save
-    Rails.logger.info ">>> resource errors: #{resource.errors.full_messages}"
-    if resource.persisted?
-      render json: { customer: resource }, status: :created
-    else
-      render json: { errors: resource.errors.full_messages }, status: :unprocessable_entity
+    super do |customer|
+      if customer.persisted?
+        GuestMerger.call(guest_token: cookies[:guest_token], customer: customer)
+        cookies.delete(:guest_token)
+      end
     end
   rescue ActiveRecord::RecordNotUnique
     render json: { errors: ['An account is already registered for this session. Please log in.'] }, status: :unprocessable_entity
+  end
+
+  protected
+
+  def build_resource(hash = {})
+    super
+    resource.user ||= current_user
   end
 
   private
@@ -24,11 +25,11 @@ class Api::V1::Customers::RegistrationsController < Devise::RegistrationsControl
     params.require(:customer).permit(:name, :email, :password, :password_confirmation)
   end
 
-  def respond_with(resource, _opts = {})
-    if resource.persisted?
-      render json: { customer: resource }, status: :created
+  def respond_with(customer, _opts = {})
+    if customer.persisted?
+      render json: { customer: customer.slice(:id, :email) }, status: :created
     else
-      render json: { errors: resource.errors.full_messages }, status: :unprocessable_entity
+      render json: { errors: customer.errors.full_messages }, status: :unprocessable_entity
     end
   end
 end

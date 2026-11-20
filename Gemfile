@@ -1,5 +1,7 @@
 source "https://rubygems.org"
 
+gem 'letter_opener_web', group: :development
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.0.2"
 # Use sqlite3 as the database for Active Record
@@ -41,6 +43,9 @@ gem "thruster", require: false
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
 #gem "rack-cors"
+
+# dotenv for managing environment variables [
+gem "dotenv-rails", groups: [:development, :test]
 
 # Google Auth 
 gem "googleauth"
