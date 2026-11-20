@@ -18,6 +18,7 @@ import CustomerService from './src/pages/CustomerService'
 import TrackOrder from './src/pages/TrackOrder'
 import ReturnsExchanges from './src/pages/ReturnsExchanges'
 import ShippingInfo from './src/pages/ShippingInfo'
+import ProductCategory from './src/pages/ProductCategory'
 
 const router = createBrowserRouter(
       createRoutesFromElements(
@@ -33,6 +34,7 @@ const router = createBrowserRouter(
             <Route path="track-order" element={<TrackOrder />} />
             <Route path="returns-exchanges" element={<ReturnsExchanges />} />
             <Route path="shipping-info" element={<ShippingInfo />} />
+            <Route path="product/:category" element={<ProductCategory />} />
             <Route path="Products/:id" element={<Product />} />
             <Route path="Cart" element={<Cart />} />
             <Route path="Wishlist" element={<Wishlist />} />

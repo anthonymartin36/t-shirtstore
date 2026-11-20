@@ -51,10 +51,10 @@ const Footer: React.FC = () => {
         <div>
           <h3 className="text-lg font-medium mb-4">Shop</h3>
           <ul className="space-y-2 text-gray-400">
-            <li><a href="#" className="hover:text-white">Plain T-Shirts</a></li>
-            <li><a href="#" className="hover:text-white">Polo T-Shirts</a></li>
-            <li><a href="#" className="hover:text-white">V-Neck T-Shirts</a></li>
-            <li><a href="#" className="hover:text-white">Raglan T-Shirts</a></li>
+            <li><Link to="/product/tshirt" className="hover:text-white">Plain T-Shirts</Link></li>
+            <li><Link to="/product/raglan" className="hover:text-white">Raglan T-Shirts</Link></li>
+            <li><Link to="/product/polo" className="hover:text-white">Polo T-Shirts</Link></li>
+            <li><Link to="/product/vneck" className="hover:text-white">V-Neck T-Shirts</Link></li>
           </ul>
         </div>
         <div>
