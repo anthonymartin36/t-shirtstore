@@ -14,7 +14,7 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = 'd87d4f5014b69682ecb5c3e618615587bce6d93d7e15e2df082ec1d1b36ac758db66ef39f1048168f89513e3dc1b07a3375452587659f3365915d62c086e8c1d'
+  config.secret_key = ENV['RAILS_SECRET_KEY']
 
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
@@ -24,7 +24,8 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
+  config.mailer_sender = 'tshirtshoprr@gmail.com'
+  config.mailer = 'CustomDeviseMailer'
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
@@ -97,7 +98,7 @@ Devise.setup do |config|
   # Notice that if you are skipping storage for all authentication paths, you
   # may want to disable generating routes to Devise's sessions controller by
   # passing skip: :sessions to `devise_for` in your config/routes.rb
-  config.skip_session_storage = [:http_auth]
+  config.skip_session_storage = [:http_auth, :params_auth]
 
   # By default, Devise cleans up the CSRF token on authentication to
   # avoid CSRF token fixation attacks. This means that, when using AJAX
@@ -143,7 +144,7 @@ Devise.setup do |config|
   # without confirming their account.
   # Default is 0.days, meaning the user cannot access the website without
   # confirming their account.
-  # config.allow_unconfirmed_access_for = 2.days
+  config.allow_unconfirmed_access_for = 3.days
 
   # A period that the user is allowed to confirm their account before their
   # token becomes invalid. For example, if set to 3.days, the user can confirm
@@ -304,6 +305,21 @@ Devise.setup do |config|
   # Note: These might become the new default in future versions of Devise.
   config.responder.error_status = :unprocessable_entity
   config.responder.redirect_status = :see_other
+
+  # ==> Configuration for devise-jwt
+  config.jwt do |jwt|
+    jwt.secret = ENV['RAILS_SECRET_KEY']
+    jwt.dispatch_requests = [
+      ['POST', %r{^/api/v1/login$}],
+      ['POST', %r{^/api/v1/register$}],
+      ['POST', %r{^/api/v1/glogin$}]
+    ]
+    jwt.revocation_requests = [
+      ['DELETE', %r{^/api/v1/logout$}],
+      ['DELETE', %r{^/api/v1/glogout$}]
+    ]
+    jwt.expiration_time = 1.day.to_i
+  end
 
   # ==> Configuration for :registerable
 

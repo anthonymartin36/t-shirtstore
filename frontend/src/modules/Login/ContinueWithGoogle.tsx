@@ -1,26 +1,33 @@
-//import {Button} from '../../components/Button'
+import { useEffect, useRef } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
 import { useNavigate } from 'react-router-dom'
-
+import { gloginCustomerApi } from '../../apis/glogin'
 
 const ContinueWithGoogle: React.FC = () => {
 
-  const log = useAuth0()
-  const navigate = useNavigate()  
+  const { loginWithPopup, getIdTokenClaims, isAuthenticated } = useAuth0()
+  const navigate = useNavigate()
+  const pendingLogin = useRef(false)
+
+  useEffect(() => {
+    if (!isAuthenticated || !pendingLogin.current) return
+    pendingLogin.current = false
+    getIdTokenClaims()
+      .then(claims => {
+        if (!claims?.__raw) throw new Error('No ID token received')
+        return gloginCustomerApi(claims.__raw)
+      })
+      .then(() => navigate('/'))
+      .catch(err => console.error("Google login failed:", err))
+  }, [isAuthenticated])
 
   const handleSignIn = async () => {
     try {
-      // Log in using the popup method
-      await log.loginWithRedirect();
-
-      // Get the user's information after login
-      const user = log.user;
-      console.log("Logged in user:", user);
-
-      // Redirect to the home page after successful login
-      navigate('/');
+      pendingLogin.current = true
+      await loginWithPopup()
     } catch (error) {
-      //console.error("Login failed:", error);
+      pendingLogin.current = false
+      console.error("Popup failed:", error)
     }
   }
 	return (

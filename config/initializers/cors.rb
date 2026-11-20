@@ -7,13 +7,14 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins "http://localhost:5173"
+    origins "http://localhost:5173", "https://your-store.com"
 
     resource "*",
       headers: :any,
       methods: [:get, :post, :put, :patch, :delete, :options, :head],
       # Exposing 'Authorization' for authentication and 'Uid' for user identification.
       # Ensure 'Uid' does not contain sensitive information before exposing it.
-      expose: %w[Authorization Uid]
+      expose: %w[Authorization Uid],
+      credentials: true
   end
 end

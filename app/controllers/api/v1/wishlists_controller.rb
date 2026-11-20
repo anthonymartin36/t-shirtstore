@@ -1,16 +1,11 @@
 class Api::V1::WishlistsController < ApplicationController
-<<<<<<< HEAD
-  before_action :set_wishlist, only: %i[ show update destroy quantity update_quantity add_to_cart]
-=======
-  before_action :set_wishlist, only: %i[ show update destroy quantity update_quantity show_by_product cart ]
->>>>>>> docker-trial
+  before_action :set_wishlist, only: %i[ show update destroy quantity update_quantity cart add_to_cart ]
+
 
   # GET api/v1/wishlists
   def index
-    @wishlists = Wishlist.includes(product: :image)
-
+    @wishlists = Wishlist.includes(product: :image).where(user_id: current_user.id)
     render json: @wishlists, include: { product: { include: :image } }
-    Rails.logger.info "New Wishlist value: #{@wishlists .inspect}" # Log the new_quantity value
   end
 
   # GET  api/v1/wishlists/1
@@ -21,6 +16,7 @@ class Api::V1::WishlistsController < ApplicationController
   # POST  api/v1/wishlists
   def create
     @wishlist = Wishlist.new(wishlist_params)
+    @wishlist.user_id = current_user.id
 
     if @wishlist.save
       render json: @wishlist, status: :created
@@ -58,7 +54,7 @@ class Api::V1::WishlistsController < ApplicationController
   def cart
     @cart = Cart.new(
       product_id: @wishlist.product_id,
-      customer_id: @wishlist.customer_id,
+      user_id: current_user.id,
       quantity: @wishlist.quantity
     )
     
@@ -96,7 +92,7 @@ class Api::V1::WishlistsController < ApplicationController
   def add_to_cart
     @cart = Cart.new(
       product_id: @wishlist.product_id,
-      customer_id: @wishlist.customer_id,
+      user_id: current_user.id,
       quantity: @wishlist.quantity
     )
     
@@ -125,13 +121,7 @@ class Api::V1::WishlistsController < ApplicationController
   def set_wishlist
     Rails.logger.info "Params ID: #{params[:id]}" # Log the ID parameter
     @wishlist = Wishlist.find(params[:id])
-<<<<<<< HEAD
-  rescue ActiveRecord::RecordNotFound
-    render json: { error: "Wishlist not found" }, status: :not_found
-  end
 
-=======
->>>>>>> docker-trial
   rescue ActiveRecord::RecordNotFound
     render json: { error: "Wishlist not found" }, status: :not_found
   end
@@ -142,14 +132,7 @@ class Api::V1::WishlistsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def wishlist_params
-    params.expect(wishlist: [ :quantity, :customer_id, :product_id ])
+    params.expect(wishlist: [ :quantity, :product_id ])
   end
-<<<<<<< HEAD
 
-  # def cart_params
-  #   params.require(:cart).permit(:quantity, :customer_id, :product_id)
-  # end
-=======
 end
- 
->>>>>>> docker-trial

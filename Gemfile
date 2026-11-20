@@ -1,5 +1,7 @@
 source "https://rubygems.org"
 
+gem 'letter_opener_web', group: :development
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.0.2"
 # Use sqlite3 as the database for Active Record
@@ -40,7 +42,13 @@ gem "thruster", require: false
 # gem "image_processing", "~> 1.2"
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
-# gem "rack-cors"
+#gem "rack-cors"
+
+# dotenv for managing environment variables [
+gem "dotenv-rails", groups: [:development, :test]
+
+# Google Auth 
+gem "googleauth"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -54,4 +62,4 @@ group :development, :test do
 end
 
 gem "devise", "~> 4.9"
-gem "devise-api", "~> 0.2.0"
+gem "devise-jwt", "~> 0.9.0"
