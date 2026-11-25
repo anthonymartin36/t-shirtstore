@@ -7,6 +7,10 @@ import { XMarkIcon } from "@heroicons/react/16/solid"
 import { navigation } from './helper'
 import { NavigationType } from './types'
 import Toggle from '../Toggle'
+import Wishlist from '../Wishlist'
+import Authenticate from '../Authenticate'
+import Cart from '../Cart'
+
 
 const MobileHeader: React.FC<MobileHeaderProps> = ({mobileMenuOpen, setMobileMenuOpen, darkMode, setDarkMode}) => {
     //console.log("mobileMenuOpen : ", mobileMenuOpen)
@@ -18,21 +22,39 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({mobileMenuOpen, setMobileMen
             onClose={setMobileMenuOpen}>
             <Dialog.Panel 
             className="fixed inset-y-0 right-0 z-0 w-full overflow-y-auto bg-white p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-                <div className="flex items-start space-x-4">
+                <div className="flex justify-between">
+                    <div className="flex-1">
                     <Link to="/" >
                         <img src={Logo} alt="T-Shirt Store" className="h-10 w-auto rounded-2xl"  />
                     </Link>
+                    </div>
+                    <div className="flex-1 flex items-center justify-end">
                     <button
                         type="button"
-                        className={`-m-2.5 rounded-md p-2.5 text-gray-700`}
+                        className="-m-2.5 rounded-md p-2.5 text-gray-700 "
                         onClick={() => setMobileMenuOpen(false)}
                     >
                         <span className="sr-only">Close menu</span>
                     <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                     </button>
+                    </div>
                 </div>
                 <div className="mt-6 flow-root">
-                <Toggle darkMode={darkMode} setDarkMode={setDarkMode} />
+                                    {/* Login */}
+                    <div className="">
+                        <div className="space-y-2 py-6">
+                            <Toggle darkMode={darkMode} setDarkMode={setDarkMode} />
+                        </div>
+                        <div className="space-y-2 py-6">
+                            <Authenticate />
+                        </div>
+                        <div className="space-y-2 py-6">
+                            <Wishlist darkMode={false} />
+                        </div>
+                        <div className="space-y-2 py-6">
+                            <Cart darkMode={false} />
+                        </div>  
+                    </div>
                 <div className="-my-6 divide-y divide-gray-500/10">
                     <div className="space-y-2 py-6">
                         {navigation.map((item: NavigationType) => (
@@ -45,6 +67,8 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({mobileMenuOpen, setMobileMen
                             </Link>
                         ))}
                     </div>
+                    
+
                 </div>
             </div>
            </Dialog.Panel>

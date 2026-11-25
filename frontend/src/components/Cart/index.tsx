@@ -45,7 +45,7 @@ const Cart: React.FC<darkModeProps> = ({ darkMode }) => {
             </Menu.Button>
             <div>
             <Menu.Items
-                className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
+                className="absolute left-0 lg:left-auto lg:right-0 z-10 mt-2 w-56 origin-top-left lg:origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
             >
               <div className="border-b justify-center items-center border-gray-200 py-2 px-5 " >
                 <Menu.Item disabled>
@@ -61,7 +61,7 @@ const Cart: React.FC<darkModeProps> = ({ darkMode }) => {
                         <Menu.Item disabled>
                         <div className="grid grid-cols-2 content-center gap-4 ml-2 text-sm">
                             <div className="text-left">
-                              <img src={item.product.image.image_url} alt={item.product.image.image_alt} className="w-20 h-20 object-cover rounded" />
+                            <img src={`${base_url}/${item.product.image.image_url}`} alt={item.product.image.image_alt} className="w-20 h-15 " />
                             </div>
                             <div className="text-left">
                               <strong>{item.product.image.image_name}</strong>

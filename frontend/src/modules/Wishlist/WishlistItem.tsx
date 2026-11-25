@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react' 
+import { useState, useRef } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { updateWishlistQuantityApi } from '../../apis/wishlist'
@@ -11,6 +11,7 @@ interface WishlistItemProps {
 
 const WishlistItem: React.FC<WishlistItemProps> = ({ id, quantity }) => {
   const [buttonValue, setButtonValue] = useState(quantity)
+  const isMounted = useRef(false)
 
   // Access the query client to invalidate or update the cart query
   const queryClient = useQueryClient()
@@ -42,20 +43,24 @@ const WishlistItem: React.FC<WishlistItemProps> = ({ id, quantity }) => {
     setButtonValue(prevCount => prevCount + 1)// Pass the correct argument
   }
   useEffect(() => {
-    updateQuantityMutation({ quantity: buttonValue });
+    if (!isMounted.current) {
+      isMounted.current = true
+      return
+    }
+    updateQuantityMutation({ quantity: buttonValue })
   }, [buttonValue])
 
   return (
-    <div key={`${id}`} id={`${id}`} className="flex bg-gray-100 items-center font-medium justify-between mt-1 mx-3 my-1">
+    <div key={`${id}`} id={`${id}`} className="flex w-full bg-gray-100 items-center font-medium justify-between py-1.5 px-3 rounded-md">
       <button
-        className="items-center justify-center bg-red-400 hover:bg-red-600 text-white w-5 h-5 rounded-md"
+        className="items-center justify-center bg-red-400 hover:bg-red-600 text-white font-bold w-14 h-6 rounded-md"
         onClick={handleDecrement}
       >
         -
       </button>
       <span> {buttonValue} </span>
       <button
-        className="items-center justify-center bg-red-400 hover:bg-red-600 text-white w-5 h-5 rounded-md"
+        className="items-center justify-center bg-red-400 hover:bg-red-600 text-white font-bold w-14 h-6  rounded-md"
         onClick={handleIncrement}
       >
         +

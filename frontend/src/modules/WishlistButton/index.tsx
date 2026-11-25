@@ -41,7 +41,7 @@ const WishlistButton: React.FC<WishlistButtonProps> = ( {productId} ) => {
     if (wishlist && wishlistMember && wishlistMember.wishlistid != 0) {
         //console.log('wishlistMember : ', wishlistMember?.wishlistid, 'quantity : ', wishlistMember?.quantity)
         return (
-            <div className="">
+            <div className="w-full">
             <WishlistItem id={wishlist?.wishlistid} quantity={wishlist?.quantity} />
             </div>
         )

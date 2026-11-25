@@ -17,6 +17,10 @@ type CartType = {
   quantity: number
   product_id: number
 }
+export type CartTypeWithProductID = {
+  cartid: number
+  quantity: number
+}
 
 // GET all carts (/api/v1/carts)
 export async function getAllCartApi(): Promise<[CartTypeWithProductextendImage]> {
@@ -69,5 +73,15 @@ export async function updateCartQuantityApi(id: number, quantity: any): Promise<
     return response.body
   } catch (error) {
     throw console.error('Error adding to Cart item quantity', error)
+  }
+}
+
+
+export async function getCartByProductIdApi(productId: number): Promise<CartTypeWithProductID> {
+  try {
+    const response = await api.get(`${rootUrl}/carts/product/${productId}`)
+    return response.body
+  } catch (error) {
+    throw console.error('Error fetching Cart by product ID', error)
   }
 }

@@ -65,8 +65,9 @@ export async function confirmEmailApi(token: string): Promise<void> {
 export async function logoutCustomerApi(): Promise<void> {
   try {
     await api.delete(`${rootUrl}/logout`)
-    clearToken()
   } catch (error) {
-    console.error('Error logging out a Customer', error); throw error
+    console.error('Error logging out a Customer', error)
+  } finally {
+    clearToken()
   }
 }

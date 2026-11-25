@@ -44,6 +44,16 @@ class Api::V1::CartsController < ApplicationController
     render json: { quantity: @cart.quantity }, status: :ok
   end
 
+  # GET /api/v1/carts/product/:product_id
+  def find_quantity
+    find_cart = Cart.find_by(product_id: params[:product_id], user_id: current_user.id)
+    if find_cart
+      render json: { cartid: find_cart.id, quantity: find_cart.quantity }
+    else
+      render json: { cartid: 0, quantity: 0 }
+    end
+  end
+
   # PATCH /api/v1/carts/:id/update_quantity
   def update_quantity
     new_quantity = params[:quantity].to_i # Get the new quantity from the request

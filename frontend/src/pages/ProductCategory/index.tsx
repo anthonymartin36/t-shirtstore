@@ -19,7 +19,7 @@ const ProductCategory: React.FC = () => {
   const { category } = useParams<{ category: string }>()
 
   const categoryName = CATEGORY_MAP[category?.toLowerCase() ?? '']
-  console.log('categoryName:', categoryName)
+  //console.log('categoryName:', categoryName)
   const { data: products, isLoading, isError } = useQuery({
     queryKey: ['products'],
     queryFn: getAllProductsApi,

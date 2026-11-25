@@ -3,7 +3,7 @@ import { Menu } from '@headlessui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import { getAllWishlistApi, updateWishlistQuantityApi} from '../../apis/wishlist' // //, updateCartQuantityApi
-import {useState } from 'react' 
+import { useState, useRef } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom' 
@@ -46,7 +46,7 @@ const Wishlist: React.FC<darkModeProps> = ({ darkMode }) => {
           </Menu.Button>
           <div>
           <Menu.Items
-              className="absolute right-0 z-10 mt-2 w-54 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
+              className="absolute left-0 lg:left-auto lg:right-0 z-10 mt-2 w-54 origin-top-left lg:origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
           >
             <div className="border-b justify-center items-center border-gray-200 py-2 px-5" >
               <Menu.Item disabled>
@@ -93,6 +93,7 @@ interface WishlistItemProps {
 
 const WishlistItem: React.FC<WishlistItemProps> = ({ id, quantity }) => {
   const [buttonValue, setButtonValue] = useState(quantity)
+  const isMounted = useRef(false)
 
   // Access the query client to invalidate or update the cart query
   const queryClient = useQueryClient()
@@ -124,7 +125,11 @@ const WishlistItem: React.FC<WishlistItemProps> = ({ id, quantity }) => {
     setButtonValue(prevCount => prevCount + 1)// Pass the correct argument
   }
   useEffect(() => {
-    updateQuantityMutation({ quantity: buttonValue });
+    if (!isMounted.current) {
+      isMounted.current = true
+      return
+    }
+    updateQuantityMutation({ quantity: buttonValue })
   }, [buttonValue])
 
   return (

@@ -4,7 +4,6 @@ import { useAuth0 } from '@auth0/auth0-react'
 import React from 'react'
 import { Menu } from '@headlessui/react'
 import { logoutCustomerApi } from '../../apis/login'
-import { getStoredToken } from '../../apis/request'
 
 type User = {
   nickname?: string
@@ -30,7 +29,6 @@ function DefaultUserIcon() {
 
 export default function Authenticate() {
   const [user, setUser] = React.useState<null | User>(null)
-  const [isJwtCustomer, setIsJwtCustomer] = React.useState(!!getStoredToken())
   const appColour = 'red'
   const colors = { normal: 100, hover: '400' }
 
@@ -48,7 +46,6 @@ export default function Authenticate() {
       try {
         await logoutCustomerApi()
       } finally {
-        setIsJwtCustomer(false)
         navigate('/')
       }
     }
@@ -79,8 +76,15 @@ export default function Authenticate() {
                 </div>
               </Menu.Button>
               <Menu.Items
-                className="absolute right-0 z-10 mt-2 w-36 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
+                className="absolute left-0 lg:left-auto lg:right-0 z-10 mt-2 w-36 origin-top-left lg:origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
               >
+                <Menu.Item disabled>
+                  <div className="border-b justify-center items-center border-gray-200 py-2 px-5">
+                    <Link to="/account" className="font-medium text-indigo-600 hover:text-indigo-500">
+                      Account
+                    </Link>
+                  </div>
+                </Menu.Item>
                 <Menu.Item disabled>
                   <div className="border-b justify-center items-center border-gray-200 py-2 px-5">
                     <Link to="/" onClick={handleSignOut} className="font-medium text-indigo-600 hover:text-indigo-500">

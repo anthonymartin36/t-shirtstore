@@ -19,26 +19,30 @@ import TrackOrder from './src/pages/TrackOrder'
 import ReturnsExchanges from './src/pages/ReturnsExchanges'
 import ShippingInfo from './src/pages/ShippingInfo'
 import ProductCategory from './src/pages/ProductCategory'
+import NotFound from './src/pages/NotFound'
+import Account from './src/pages/Account'
 
 const router = createBrowserRouter(
       createRoutesFromElements(
         <> 
         <Route path="/" element={<App />} >
             <Route index  element={<Home />} />
-            <Route path="Register" element={<Register />} />
-            <Route path="Login" element={<Login />} />
-            <Route path="ForgotPassword" element={<ForgotPassword />} />
+            <Route path="register" element={<Register />} />
+            <Route path="login" element={<Login />} />
+            <Route path="forgotpassword" element={<ForgotPassword />} />
             <Route path="reset-password" element={<ResetPassword />} />
             <Route path="confirm-email" element={<ConfirmEmail />} />
             <Route path="customer-service" element={<CustomerService />} />
             <Route path="track-order" element={<TrackOrder />} />
             <Route path="returns-exchanges" element={<ReturnsExchanges />} />
             <Route path="shipping-info" element={<ShippingInfo />} />
-            <Route path="product/:category" element={<ProductCategory />} />
-            <Route path="Products/:id" element={<Product />} />
-            <Route path="Cart" element={<Cart />} />
-            <Route path="Wishlist" element={<Wishlist />} />
-            <Route path="Checkout" element={<Checkout />} />
+            <Route path="products/:category" element={<ProductCategory />} />
+            <Route path="product/:id?" element={<Product />} />
+            <Route path="cart" element={<Cart />} />
+            <Route path="wishlist" element={<Wishlist />} />
+            <Route path="checkout" element={<Checkout />} />
+            <Route path="account" element={<Account />} />
+            <Route path="*" element={<NotFound />} />
         </Route>
       </>,
       )

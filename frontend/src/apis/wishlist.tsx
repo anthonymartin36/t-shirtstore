@@ -83,11 +83,11 @@ export async function updateWishlistQuantityApi(id: number, quantity: any): Prom
   }
 }
 
-// Get Wishlist by product ID (/api/v1/wishlists/product/:productId)
+// Get Wishlist by product ID (/api/v1/wishlists/product/:productId) getCartByProductIdApi
 export async function getWishlistByProductIdApi(productId: number): Promise<WishlistTypeWithProductID> {
   try {
      const response = await api.get(`${rootUrl}/wishlists/product/${productId}`)
-     console.log("Calling API URL:", response.body)
+     //console.log("Calling API URL:", response.body)
      return response.body
    } catch (error) {
      throw console.error('Error fetching Wishlist by product ID', error)

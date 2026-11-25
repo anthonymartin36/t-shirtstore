@@ -31,6 +31,9 @@ Rails.application.routes.draw do
           get  :quantity
           patch :update_quantity
         end
+        collection do
+          get 'product/:product_id', action: :find_quantity
+        end
       end
       resources :wishlists do
         member do

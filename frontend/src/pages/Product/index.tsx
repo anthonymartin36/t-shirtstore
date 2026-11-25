@@ -8,22 +8,32 @@ import { getAProductApi } from '../../apis/products'
 import { ProductType } from '../../modules/Products/types'
 import CartButton from '../../modules/CartButton/index.tsx'
 import WishlistButton from '../../modules/WishlistButton/index.tsx'
+import Products from '../../modules/Products'
 
 const Product: React.FC = () => {
   const [darkMode, setDarkMode] = React.useState(true)
-  
-  const { id } = useParams<{ id: string }>()
-  let productId = id ? parseInt(id) : 0
-    //console.log("Product ID: ", id)
+
+  const { id } = useParams<{ id?: string }>()
+  const productId = id ? parseInt(id) : 0
   const {
     data: product,
     isLoading,
     isError,
-  } = useQuery<ProductType>({ 
+  } = useQuery<ProductType>({
     queryKey: ['product', productId],
     queryFn: () => getAProductApi(productId),
-    enabled: !isNaN(productId),
-  })    
+    enabled: !!id && !isNaN(productId),
+  })
+
+  if (!id) {
+    return (
+      <PageLayout>
+        <Header darkMode={darkMode} setDarkMode={setDarkMode} />
+        <Products />
+        <Footer />
+      </PageLayout>
+    )
+  }    
   if (isError) {
     return (
       <div className="flex flex-1 min-h-screen">
@@ -84,7 +94,7 @@ const Product: React.FC = () => {
             <p className="mt-4">
               Our premium black t-shirt is made from 100% organic cotton for ultimate comfort and durability. The fabric is pre-shrunk and features a slightly heavier weight for a premium feel.
             </p>
-            <div className="grid grid-cols-2 gap-4 mt-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6 w-full">
               <WishlistButton productId={product.id} />
               <CartButton productId={product.id} />
             </div>

@@ -4,8 +4,20 @@ class Api::V1::Customers::SessionsController < Devise::SessionsController
   def create
     super do |customer|
       GuestMerger.call(guest_token: cookies[:guest_token], customer: customer)
-      cookies.delete(:guest_token)
+      cookies[:guest_token] = {
+        value:   customer.user.guest_token,
+        expires: 1.year.from_now,
+        httponly: true,
+        secure:  Rails.env.production?
+      }
     end
+  end
+
+  def destroy
+    super
+  rescue JWT::DecodeError => e
+    Rails.logger.warn "JWT revocation skipped — could not decode token: #{e.message}"
+    respond_to_on_destroy
   end
 
   private

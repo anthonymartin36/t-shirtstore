@@ -1,4 +1,4 @@
-Image.create!([
+[
   { 
     image_name: "White Polo T-Shirt",
     image_alt:"White Polo T-Shirt",
@@ -99,6 +99,11 @@ Image.create!([
     image_alt: "Blue V-Neck Shirt",
     image_url: "t-shirt/v-neck/bluevneck.jpg"
   }
-])
+].each do |attrs|
+  Image.find_or_create_by(image_url: attrs[:image_url]) do |img|
+    img.image_name = attrs[:image_name]
+    img.image_alt  = attrs[:image_alt]
+  end
+end
 
-puts "Created #{Image.count} categories"
+puts "Images total: #{Image.count}"

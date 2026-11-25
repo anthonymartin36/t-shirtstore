@@ -106,7 +106,7 @@ const WishlistButton: React.FC<WishlistButtonProps> = ({ id }) => {
 		},
 	})
 
-	console.log("Button ID", id)
+	//console.log("Button ID", id)
 	return (
 		<div key={id} id={id.toString()}>
 		<button 

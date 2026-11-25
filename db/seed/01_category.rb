@@ -1,8 +1,5 @@
-Category.create!([
-  { name: "Polo T-Shirt" },
-  { name: "V-Neck T-Shirt" },
-  { name: "Raglan T-Shirt" },
-  { name: "T-Shirt" }
-])
+['Plain T-Shirt', 'Polo T-Shirt', 'V-Neck T-Shirt', 'Raglan T-Shirt'].each do |name|
+  Category.find_or_create_by!(name: name)
+end
 
-puts "Created #{Category.count} categories"
+puts "Categories total: #{Category.count}"
