@@ -22,7 +22,11 @@ Rails.application.routes.draw do
       }
 
       resources :products
-      resources :orders
+      resources :orders do
+        collection do
+          get :latest
+        end
+      end
       resources :customers
       resources :categories
       resources :newsletter_subscriptions, only: [:create]

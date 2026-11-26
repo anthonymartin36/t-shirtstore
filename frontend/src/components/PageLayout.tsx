@@ -9,15 +9,8 @@ type PageLayoutProps = {
 const PageLayout: React.FC<PageLayoutProps> = ({ children }) => {
     const { darkMode } = useDarkMode()
     React.useEffect(() => {
-        const htmlElement = document.documentElement // Access the <html> tag
-            if (darkMode) {
-                htmlElement.classList.remove('light-mode')
-                htmlElement.classList.add('dark-mode')
-            }else {
-                htmlElement.classList.remove('dark-mode')
-                htmlElement.classList.add('light-mode')
-            }
-    }, [darkMode]) // Re-run this effect whenever darkMode changes
+        document.documentElement.classList.toggle('dark-mode', darkMode)
+    }, [darkMode])
     
     return (
         <>

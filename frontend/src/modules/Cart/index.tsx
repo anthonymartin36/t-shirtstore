@@ -52,7 +52,7 @@ const Cartt: React.FC = () => {
 
 					<div className="ml-4 flex flex-1 ">
 						<div className="flex flex-1 flex-col">
-							<div className="flex-row mt-1 text-sm text-gray-500">
+							<div className="flex-row mt-1 text-sm">
 								<p >{cart.product.image.image_name}</p>
 							</div>
 							<div className="flex-row sm:w-1 md:w-1/2 lg:w-1/3 ">
@@ -60,7 +60,7 @@ const Cartt: React.FC = () => {
 							</div>
 						</div>
 					<div className="flex flex-1 flex-col text-right">
-						<div className="ml-4 font-medium text-gray-900">
+						<div className="ml-4 font-medium">
 						{cart.quantity >= 2 ? (
 							<div >
 							<p> $ {cart.product.price}</p>

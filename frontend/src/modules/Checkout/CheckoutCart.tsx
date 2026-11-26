@@ -17,7 +17,7 @@ const CheckoutCart: React.FC<Props> = ({ carts }) => {
       <div className="mb-4">
         <ul>
           {carts.map((cart: CartTypeWithProductextendImage) => (
-            <li key={cart.id} className="flex justify-between py-1 text-sm text-gray-700 w-full">
+            <li key={cart.id} className="flex justify-between py-1 text-sm w-full">
               <span className="w-1/2 text-left">{cart.product.image.image_name}</span>
               <span className="w-1/2 text-right">
                 {cart.quantity > 1

@@ -33,9 +33,12 @@ const ProductCategory: React.FC = () => {
     return (
       <PageLayout>
         <Header darkMode={darkMode} setDarkMode={setDarkMode} />
+        <main className="max-w-3xl mx-auto px-4 py-16 sm:px-6 lg:px-8 min-h-screen">
+
         <div className="flex flex-1 min-h-screen items-center justify-center">
           <h1 className="text-2xl font-semibold">Category not found.</h1>
         </div>
+        </main>
         <Footer />
       </PageLayout>
     )
@@ -63,7 +66,7 @@ const ProductCategory: React.FC = () => {
         <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-6">
           {filtered?.map((product: ProductType) => (
             <div key={product.id} className="group relative">
-              <Link to={`/Products/${product.id}`}>
+              <Link to={`/product/${product.id}`}>
                 <img
                 src={`../${product.image.image_url}`}
                 alt={product.image?.image_alt}
@@ -76,7 +79,7 @@ const ProductCategory: React.FC = () => {
           ))}
         </div>
       </div>
-
+ 
       <Footer />
     </PageLayout>
   )

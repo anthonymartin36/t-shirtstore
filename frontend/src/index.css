@@ -1,18 +1,22 @@
 @import "tailwindcss";
 /* @import "tailwindcss/preflight"; */
 
-.light-mode {
+html {
     --bg-color: #ffffff;
+    --surface-color: #f8f8f8;
     --text-color: #333333;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.5s, color 0.5s;
 }
-  
-.dark-mode {
+
+html.dark-mode {
     --bg-color: #333333;
+    --surface-color: #3d3d3d;
     --text-color: #ffffff;
 }
 
 body {
-    transition: background-color 0.5s, color 0.5s;
     background-color: var(--bg-color);
     color: var(--text-color);
 }

@@ -21,6 +21,7 @@ import ShippingInfo from './src/pages/ShippingInfo'
 import ProductCategory from './src/pages/ProductCategory'
 import NotFound from './src/pages/NotFound'
 import Account from './src/pages/Account'
+import PurchaseComplete from './src/pages/PurchaseComplete'
 
 const router = createBrowserRouter(
       createRoutesFromElements(
@@ -42,6 +43,7 @@ const router = createBrowserRouter(
             <Route path="wishlist" element={<Wishlist />} />
             <Route path="checkout" element={<Checkout />} />
             <Route path="account" element={<Account />} />
+            <Route path="purchase-complete" element={<PurchaseComplete />} />
             <Route path="*" element={<NotFound />} />
         </Route>
       </>,

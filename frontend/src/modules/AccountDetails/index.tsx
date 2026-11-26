@@ -1,4 +1,9 @@
 import React from 'react'
+import CustomerDetails from './CustomerDetails'
+import PaymentDetails from './PaymentDetails'
+import ShippingDetails from './ShippingDetails'
+import PreviousPurchases from './PreviousPurchases'
+import AccountStatus  from './AccountStatus'
 
 const AccountDetails: React.FC = () => {
   return (
@@ -10,26 +15,17 @@ const AccountDetails: React.FC = () => {
           Account Details here
         </p>
         <div className="rounded-lg p-6 space-y-4" style={{ backgroundColor: 'var(--bg-color)', border: '1px solid var(--text-color)', opacity: 0.9 }}>
-          <div>
-            <h2 className="text-lg font-semibold">Customer Account</h2>
-            <p className="mt-1">Customer account details to be displayed here.</p>
-          </div>
-          <div>
-            <h2 className="text-lg font-semibold">Payment Details</h2>
-            <p className="mt-1">Customer Payment details to be displayed here.</p>
-          </div>
-          <div>
-            <h2 className="text-lg font-semibold">Shipping Details</h2>
-            <p className="mt-1">Customer Shipping details to be displayed here.</p>
-          </div>
-          <div>
-            <h2 className="text-lg font-semibold">Previous Purchases Details</h2>
-            <p className="mt-1">Customer Previous Purchases details to be displayed here.</p>
-          </div>
-          <div>
-            <h2 className="text-lg font-semibold">Account Status</h2>
-            <p className="mt-1">Account Status details to be displayed here (Active Suspended Delete).</p>
-          </div>
+          
+          <CustomerDetails />
+
+          <PaymentDetails />
+
+          <ShippingDetails />
+
+          <PreviousPurchases />
+          
+          <AccountStatus />
+
         </div>
       </main>
     </div>

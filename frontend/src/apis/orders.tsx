@@ -1,34 +1,10 @@
 import api from './request'
-
+import { OrderConfirmation, OrderPayload } from '../pages/ProductCategory/types'
 const rootUrl = import.meta.env.VITE_NODE_API_URL + '/api/v1'
 
-export type PaymentData = {
-  cardName: string
-  cardNumber: string
-  expiryDate: string
-  cvv: string
-}
-
-export type ShippingData = {
-  fullName: string
-  address: string
-  city: string
-  postalCode: string
-  country: string
-}
-
-export type OrderData = {
-  costPrice: number
-  tax: number
-  courierCost: number
-  total: number
-}
-
-export type OrderPayload = {
-  payment: PaymentData
-  shipping: ShippingData
-  cartIds: number[]
-  order: OrderData
+export async function getLatestOrderApi(): Promise<OrderConfirmation> {
+  const response = await api.get(`${rootUrl}/orders/latest`)
+  return response.body
 }
 
 export async function createOrderApi(payload: OrderPayload) {
@@ -39,6 +15,8 @@ export async function createOrderApi(payload: OrderPayload) {
       .send(payload)
     return response.body
   } catch (error) {
-    throw console.error('Error creating order', error)
+    console.error('Error creating order', error)
+    throw error
   }
 }
+

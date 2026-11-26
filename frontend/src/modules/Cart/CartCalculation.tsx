@@ -30,7 +30,7 @@ const CartCalculation: React.FC<CartCalculationProps>= ({ total }) => {
                 $ { result }
             </div>
         </div>
-        <div className="flex justify-between text-right font-medium text-gray-900">
+        <div className="flex justify-between text-right font-medium">
         </div>
         </div>
 	)
